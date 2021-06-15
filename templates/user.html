@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+
+{% block title %}User Page{% endblock %}
+{% block content %}
+<h3>{{user.first_name}}'s Page</h3>
+<p>Username: {{user.username}}</p>
+<p>Email: {{user.email}}</p>
+<p>First Name: {{user.first_name}}</p>
+<p>Last Name: {{user.last_name}}</p>
+
+<div>
+    <h4>{{user.first_name}}'s feedbacks</h4>
+    {% if feedbacks %}
+        <ul>
+        {% for feedback in feedbacks %}
+        <li><a href="/feedback/{{feedback.id}}/update">{{feedback.title}}</a>
+            <form style="display:inline;" action="/feedback/{{feedback.id}}/delete" method="POST">
+                <button class="btn btn-sm m-0 btn-danger"><i class="fas fa-trash"></i></button>
+            </form>
+        </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <a class = "btn btn-primary" href="/users/{{user.username}}/feedback/add">Add Feedback</a>
+</div>
+{% endblock %}
