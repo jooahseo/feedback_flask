@@ -3,24 +3,31 @@
 {% block title %}User Page{% endblock %}
 {% block content %}
 <h3>{{user.first_name}}'s Page</h3>
-<p>Username: {{user.username}}</p>
-<p>Email: {{user.email}}</p>
-<p>First Name: {{user.first_name}}</p>
-<p>Last Name: {{user.last_name}}</p>
-
+<span>Username: {{user.username}}</span><br>
+<span>Email: {{user.email}}</span><br>
+<span>First Name: {{user.first_name}}</span><br>
+<span>Last Name: {{user.last_name}}</span>
+<div class="my-3">
+    <form action="/users/{{user.username}}/delete" method="POST">
+        <button class="btn btn-sm btn-danger">Delete</button>
+    </form>
+</div>
 <div>
     <h4>{{user.first_name}}'s feedbacks</h4>
+    <a style="display:inline;" class = "btn btn-primary" href="/users/{{user.username}}/feedback/add">Add Feedback</a>
+
     {% if feedbacks %}
+    <div class="my-3">
         <ul>
         {% for feedback in feedbacks %}
-        <li><a href="/feedback/{{feedback.id}}/update">{{feedback.title}}</a>
+        <li style="font-size:large;"><a href="/feedback/{{feedback.id}}/update">{{feedback.title}}</a>
             <form style="display:inline;" action="/feedback/{{feedback.id}}/delete" method="POST">
-                <button class="btn btn-sm m-0 btn-danger"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-sm m-0 btn-danger">X</button>
             </form>
         </li>
         {% endfor %}
         </ul>
+    </div>
     {% endif %}
-    <a class = "btn btn-primary" href="/users/{{user.username}}/feedback/add">Add Feedback</a>
 </div>
 {% endblock %}
