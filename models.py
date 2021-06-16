@@ -37,7 +37,6 @@ class User(db.Model):
     @classmethod
     def authenticate(cls,username,pwd):
         """Validate that user exists & password is correct.
-
         Return user if valid; else return False.
         """
         u = User.query.filter_by(username=username).first()

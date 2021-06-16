@@ -20,6 +20,10 @@ def home():
 
 @app.route('/register', methods=["GET","POST"])
 def register():
+    if "username" in session:
+        username = session['username']
+        flash('You are already registered.', 'info')
+        return redirect(f'/users/{username}')
     form = UserForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -63,10 +67,14 @@ def delete_user(username):
     db.session.delete(user)
     db.session.commit()
     flash('Deleted a user','info')
-    return redirect('/register')
+    return redirect('/')
 
 @app.route('/login', methods=["GET","POST"])
 def login():
+    if "username" in session:
+        username = session['username']
+        flash('You are already logged in.', 'info')
+        return redirect(f'/users/{username}')
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data

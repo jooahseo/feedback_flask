@@ -9,6 +9,28 @@
     <title>{%block title%}{% endblock %}</title>
 </head>
 <body>
+    <nav class="navbar navbar-light bg-info justify-content-between ">
+        <div class="container">
+          <a href="/" class="navbar-brand text-light">Hello Feedback</a>
+          <ul class="nav navbar-nav flex-row float-right">
+            {% if session['username'] %}
+            <li class="nav-item">
+                <u><a class="nav-link pr-3 text-light " href="/users/{{session['username']}}">{{session['username']}}</a></u>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 text-light" href="/logout">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link pr-3 text-light" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/register">Sign up</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+    </nav>
     <div class="container" style="margin-top: 2em">
         {% for category, msg in get_flashed_messages(with_categories=True) %}
         <div class="alert alert-{{category}}">{{ msg }}</div>
